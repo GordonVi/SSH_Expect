@@ -19,42 +19,42 @@ I wrote this to help me automate server and switch provisioning.
 ### ssh_linux_command($command)
 For sending commands to a Linux server. This depends on the echo command to generate a sentinal/end of line.  
   
-Ex: ssh_linux_command "ping -c 4 google.com"
+**Ex:** ssh_linux_command "ping -c 4 google.com"
 
 ### ssh_linux_command_display($command)
 Same as above
 This will display an output in the Powershell terminal
 
-Ex: ssh_linux_command "ping -c 4 google.com"
+**Ex:** ssh_linux_command "ping -c 4 google.com"
 
 ### ssh_prompt_command($prompt,$command)
 For sending commands to servers that have different prompts.
 Devices like switches, BIOS Management for enterprise servers, appliances, etc  
   
-Ex: ssh_prompt_command "$" "ping -c 2 google.com"
+**Ex:** ssh_prompt_command "$" "ping -c 2 google.com"
 
-Note: The $ is usually what shows up as a character on a prompt. This scans for that "$" string. This could easily be a ">","#", or whatever your SSH server uses
+**Note:** The $ is usually what shows up as a character on a prompt. This scans for that "$" string. This could easily be a ">","#", or whatever your SSH server uses
 
 ### ssh_prompt_command_display($prompt, $command)
 Same as above
 This will display an output in the Powershell terminal
 
-Ex: ssh_prompt_command_display "$" "ping -c 2 google.com"
+**Ex:** ssh_prompt_command_display "$" "ping -c 2 google.com"
 
 ### ssh_expect_command($command, $expect, $answer)
 This will send a command and expect a prompt from the command. It will then answer the expected prompt
 This will also return 1 (true) or 0 (false)
 
-Ex: ssh_expect_command "read -p `"User: `" uservar" "User:" "Test1"
+**Ex:** ssh_expect_command "read -p `"User: `" uservar" "User:" "Test1"
 
-Note: This is generating an input line in Linux and answering it. This command makes more sense if your running utilities. This specific command only does 1 answer.
+**Note:** This is generating an input line in Linux and answering it. This command makes more sense if your running utilities. This specific command only does 1 answer.
 
 ### ssh_expect($expect, $answer)
 This will send an answer to a waiting prompt.
 This is best used in conjunction with SSH_expect_command
 This was made to give the ability to provide multiple answers to a single command. (Numerous yes prompts, etc)
 
-Ex:
+**Ex:**
 
 		ssh_expect_command "read -p `"Test: `" testvar; read -p `"Tester: `" testervar; read -p `"Testerx: `" testerxvar" "Test:" "Test3" | out-null
 
@@ -68,7 +68,7 @@ This is handy after starting a command with an expect command, then waiting for 
 
 This doesn't have a timeout
 
-Ex:
+**Ex:**
 
 		$SSHStream.writeline("ping -c 4 google.com")
 		ssh_wait "min/avg/max/mdev"
