@@ -20,7 +20,7 @@ I wrote this to help me automate server and switch provisioning.
 For sending commands to a Linux server. This depends on the echo command to generate a sentinal/end of line.  
   
 **Ex:**
-		ssh_linux_command "ping -c 4 google.com"
+		    ssh_linux_command "ping -c 4 google.com"
 
 ### ssh_linux_command_display($command)
 Same as above
