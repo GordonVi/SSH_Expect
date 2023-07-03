@@ -81,6 +81,7 @@ function global:ssh_prompt_command($prompt,$command){
 		
 		do {$SSHStream.read() | out-null} until ($SSHStream.dataavailable -eq $false)
 		$SSHStream.writeline($command)
+		sleep 1
 
 		$lines=@()
 		$total=@()
@@ -120,6 +121,7 @@ function global:ssh_linux_command($command){
 		do {$SSHStream.read() | out-null} until ($SSHStream.dataavailable -eq $false)
 		$SSHStream.writeline($command)
 		$SSHStream.writeline("echo $sentinal")
+		sleep 1
 		do {$line = $SSHStream.ReadLine(); if ($line -notlike "*$sentinal*" -and $line -notlike "*$command*") {$lines += "$line"}} while ($line -notlike "*$sentinal*")
 
 		return $lines
