@@ -1,3 +1,4 @@
+Import-Module Posh-SSH
 . .\SSH_Expect_Functions
 
 # SSH Credentials
