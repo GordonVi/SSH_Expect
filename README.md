@@ -13,6 +13,7 @@ I wrote this to help me automate server and switch provisioning.
 ## Necessary edits before running
 - You will need to edit *Demo.ps1* to point to your own Linux or whatever SSH server.
 - You will need to input some appropriate commands for your SSH target (This demo was targetting a Debian Linux server with vanilla Linux commands)
+- I was lazy and put a quick credentials login to obscure my password. You'll see this at the top of the demo file. Edit this to your liking, or make your own flat file for login. The flat file method is recommended for security reasons. Just don't copy your flatfile to the public.
 
 ## The Functions
 
