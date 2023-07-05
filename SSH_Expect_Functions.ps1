@@ -6,7 +6,6 @@ function global:ssh_wait($expect){
 		$total=@()
 		do {
 
-			sleep 1
 			do {} until ($SSHStream.dataavailable)
 		
 			$lines = foreach ($line in $($SSHStream.read()).split("`n")) {if ($line -like "*$expect*") {$expectvar=1}}
@@ -19,7 +18,7 @@ function global:ssh_expect($expect, $answer){
 
 		
 		do {} until ($SSHStream.dataavailable)
-		sleep 1
+		sleep -milli 250
 
 		$expectvar=0
 		$lines=@()
@@ -51,7 +50,7 @@ function global:ssh_expect_command($command, $expect, $answer){
 		do {$SSHStream.read() | out-null} until ($SSHStream.dataavailable -eq $false)
 		$SSHStream.writeline($command)
 		do {} until ($SSHStream.dataavailable)
-		sleep 1
+		sleep -milli 250
 
 		$expectvar=0
 		$lines=@()
@@ -80,13 +79,12 @@ function global:ssh_prompt_command($prompt,$command){
 		
 		do {$SSHStream.read() | out-null} until ($SSHStream.dataavailable -eq $false)
 		$SSHStream.writeline($command)
-		sleep 1
 
 		$lines=@()
 		$total=@()
 		do {
 
-			sleep 1
+			sleep -milli 500
 			do {} until ($SSHStream.dataavailable)
 		
 			$lines = foreach ($line in $($SSHStream.read()).split("`n")) {if ($line -ne "") {$line}}
@@ -120,7 +118,6 @@ function global:ssh_linux_command($command){
 		do {$SSHStream.read() | out-null} until ($SSHStream.dataavailable -eq $false)
 		$SSHStream.writeline($command)
 		$SSHStream.writeline("echo $sentinal")
-		sleep 1
 		do {$line = $SSHStream.ReadLine(); if ($line -notlike "*$sentinal*" -and $line -notlike "*$command*") {$lines += "$line"}} while ($line -notlike "*$sentinal*")
 
 		return $lines
