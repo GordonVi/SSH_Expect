@@ -61,6 +61,11 @@ This will also return 1 (true) or 0 (false)
 
 **Note:** This is generating an input line in Linux and answering it. This command makes more sense if your running utilities. This specific command only does 1 answer.
 
+### ssh_command($command)
+This will send a command.
+
+_Use this with ssh_expect_
+
 ### ssh_expect($expect, $answer)
 This will send an answer to a waiting prompt.
 This is best used in conjunction with SSH_expect_command
@@ -68,8 +73,9 @@ This was made to give the ability to provide multiple answers to a single comman
 
 **Ex:**
 
-	ssh_expect_command "read -p `"Test: `" testvar; read -p `"Tester: `" testervar; read -p `"Testerx: `" testerxvar" "Test:" "Test3" | out-null
+	ssh_command "read -p `"Test: `" testvar; read -p `"Tester: `" testervar; read -p `"Testerx: `" testerxvar"
 
+	ssh_expect "Test" "Test3" | out-null
 	ssh_expect "Tester" "Test4" | out-null
 	ssh_expect "Testerx" "Test5" | out-null
 
