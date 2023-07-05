@@ -35,6 +35,15 @@ if ($session.host.length -gt 0) {
 
 	# Demo section
 
+	sleep 3
+	
+	"Starting ping wait..."
+	
+		$SSHStream.writeline("ping -c 4 google.com")
+		ssh_wait "min/avg/max/mdev"
+		
+	"Ending ping wait..."
+
 		ssh_linux_command_display "ping -c 2 google.com"
 		ssh_linux_command_display "traceroute google.com"
 
@@ -44,20 +53,14 @@ if ($session.host.length -gt 0) {
 
 		ssh_expect_command "read -p `"User: `" uservar" "User:" "Test1" | out-null
 		ssh_expect_command "read -p `"Pass: `" passvar" "Pass:" "Test2" | out-null
-		ssh_expect_command "read -p `"Test: `" testvar; read -p `"Tester: `" testervar; read -p `"Testerx: `" testerxvar" "Test:" "Test3" | out-null
 
+		ssh_command "read -p `"Test: `" testvar; read -p `"Tester: `" testervar; read -p `"Testerx: `" testerxvar" | out-null
+		ssh_expect "Test" "Test3" | out-null
 		ssh_expect "Tester" "Test4" | out-null
 		ssh_expect "Testerx" "Test5" | out-null
 
 	"Ending Expect Commands..."
-	
-	"Starting ping wait..."
-	
-		$SSHStream.writeline("ping -c 4 google.com")
-		ssh_wait "min/avg/max/mdev"
-		
-	"Ending ping wait..."
-	
+
 
 		sleep 1 # Powershell is faster than the SSH client's refresh. This is to give SSH some time to catch up and update the SSH buffer.
 		

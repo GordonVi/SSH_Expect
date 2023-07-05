@@ -29,9 +29,9 @@ function global:ssh_expect($expect, $answer){
 			
 			if ($SSHStream.dataavailable) {
 				
-				$y = $($SSHStream.Read()).split("`n")
+				$z = $SSHStream.Read()
+				$y = $z.split("`n")
 				$x = $y[$y.count-1]
-				
 				#foreach ($x in $y) {
 					if ($x -like "*$expect*") {$SSHStream.writeline($answer) ; $expectvar=1}
 				#}
@@ -71,7 +71,6 @@ function global:ssh_expect_command($command, $expect, $answer){
 
 		} until ($expectvar -eq 1 -or $SSHStream.dataavailable -eq $false)
 
-		do {$SSHStream.read() | out-null} until ($SSHStream.dataavailable -eq $false)
 		if ($expectvar -eq 0) {return 0} else {return 1}
 		
 }
@@ -139,4 +138,10 @@ function global:ssh_linux_command_display($command){
 		write-host -foregroundcolor green "Time: $($StopWatch.Elapsed)"
 		foreach ($line in $lines) {write-host -foregroundcolor cyan $line}
 	
+}
+
+function global:ssh_command($command){
+
+		do {$SSHStream.read() | out-null} until ($SSHStream.dataavailable -eq $false)
+		$SSHStream.writeline($command)
 }
