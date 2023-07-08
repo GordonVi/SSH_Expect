@@ -3,6 +3,8 @@ Powershell SSH expect functions
 
 These functions are useful for automating SSH commands to devices from powershell.
 
+This only works in Windows
+
 ## About
 I wrote this to help me automate server and switch provisioning.
 
